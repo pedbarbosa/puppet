@@ -1,0 +1,2 @@
+class os_default {
+}
