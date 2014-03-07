@@ -1,21 +1,23 @@
 class os_default {
-	
-	package {
-		'bash-completion':
-			ensure => latest;
 
-		'cifs-utils':
-			ensure => latest;
+    package {
+        'bash-completion':
+            ensure => latest;
 
-		'telnet':
-			ensure => latest;
-	}
+        'cifs-utils':
+            ensure => latest;
+
+        'sysstat':
+            ensure => latest;
+
+        'telnet':
+            ensure => latest;
+
+        'wakeonlan':
+            ensure => latest;
+    }
 
     file {
-		#'/etc/localtime':
-			#ensure => link,
-	 		#target => '/usr/share/zoneinfo/Australia/Brisbane';
-
         '/etc/ssh/sshd_config':
             ensure => file;
 

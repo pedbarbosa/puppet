@@ -189,4 +189,5 @@ endfunction
 command! PrettyXML call DoPrettyXML()
 
 " Manually added
-set ts=4
+set ts=4 expandtab
+syntax on
