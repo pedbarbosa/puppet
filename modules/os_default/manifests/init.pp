@@ -2,19 +2,17 @@ class os_default {
 
     package {
         'bash-completion':
-            ensure => latest;
-
+            ensure => installed;
         'cifs-utils':
-            ensure => latest;
-
+            ensure => installed;
+        'ncdu':
+            ensure => installed;
         'sysstat':
-            ensure => latest;
-
+            ensure => installed;
         'telnet':
-            ensure => latest;
-
+            ensure => installed;
         'wakeonlan':
-            ensure => latest;
+            ensure => installed;
     }
 
     file {
