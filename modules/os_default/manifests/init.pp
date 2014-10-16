@@ -20,6 +20,7 @@ class os_default {
     'ncdu',
     'net-tools',
     'ntp',
+    'openssh',
     'rsync',
     'samba',
     'sysstat',
@@ -29,8 +30,18 @@ class os_default {
       ensure => latest;
   }
 
+  service { 'sshd':
+    ensure  => running,
+    enable  => true,
+    require => Package['openssh'];
+  }
+
   file {
     '/etc/ssh/sshd_config':
-      ensure => file;
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0644',
+      source => 'puppet:///modules/os_default/sshd_config',
+      notify => Service['sshd'];
   }
 }
