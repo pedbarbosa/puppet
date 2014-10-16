@@ -1,41 +1,82 @@
 # System-wide .bashrc file for interactive bash(1) shells.
 
-# To enable the settings / commands in this file for login shells as well,
-# this file has to be sourced in /etc/profile.
-
-# If not running interactively, don't do anything
+# If not running interactively, don't do anything!
 [ -z "$PS1" ] && return
 
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
+# Check window size
 shopt -s checkwinsize
 
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
+# Enable history appending instead of overwriting.
+shopt -s histappend
+
+case ${TERM} in
+	xterm*|rxvt*|Eterm|aterm|kterm|gnome*)
+		PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }'printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/~}"'
+		;;
+	screen)
+		PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }'printf "\033_%s@%s:%s\033\\" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/~}"'
+		;;
+esac
+
+# Git bash prompt
+source /usr/share/git/completion/git-prompt.sh
+GIT_PS1_SHOWSTASHSTATE=true
+GIT_PS1_SHOWDIRTYSTATE=true
+
+# sanitize TERM:
+safe_term=${TERM//[^[:alnum:]]/?}
+match_lhs=""
+
+[[ -f ~/.dir_colors ]] && match_lhs="${match_lhs}$(<~/.dir_colors)"
+[[ -f /etc/DIR_COLORS ]] && match_lhs="${match_lhs}$(</etc/DIR_COLORS)"
+[[ -z ${match_lhs} ]] \
+	&& type -P dircolors >/dev/null \
+	&& match_lhs=$(dircolors --print-database)
+
+if [[ $'\n'${match_lhs} == *$'\n'"TERM "${safe_term}* ]] ; then
+	
+	# we have colors :-)
+
+	# Enable colors for ls, etc. Prefer ~/.dir_colors
+	if type -P dircolors >/dev/null ; then
+		if [[ -f ~/.dir_colors ]] ; then
+			eval $(dircolors -b ~/.dir_colors)
+		elif [[ -f /etc/DIR_COLORS ]] ; then
+			eval $(dircolors -b /etc/DIR_COLORS)
+		fi
+	fi
+
+	PS1="$(if [[ ${EUID} == 0 ]]; then echo '\[\033[01;31m\]\u@\h'; else echo '\[\033[01;32m\]\u@\h'; fi)\[\033[01;34m\] \w \[\033[01;33m\]\$(__git_ps1 ' (%s)') \[\033[01;34m\]\$([[ \$? != 0 ]] && echo \"\[\033[01;31m\]:(\[\033[01;34m\] \")\\$\[\033[00m\] "
+
+	# Use this other PS1 string if you want \W for root and \w for all other users:
+	# PS1="$(if [[ ${EUID} == 0 ]]; then echo '\[\033[01;31m\]\h\[\033[01;34m\] \W'; else echo '\[\033[01;32m\]\u@\h\[\033[01;34m\] \w'; fi) \$([[ \$? != 0 ]] && echo \"\[\033[01;31m\]:(\[\033[01;34m\] \")\\$\[\033[00m\] "
+
+	alias ls="ls --color=auto"
+	alias dir="dir --color=auto"
+	alias grep="grep --color=auto"
+	alias dmesg='dmesg --color'
+    alias ll="ls -l --color=auto"
+    alias vi="vim"
+    alias wakemc="wol c8:60:00:d0:65:c3"
+
+else
+
+	# show root@ when we do not have colors
+
+	PS1="\u@\h \w \$([[ \$? != 0 ]] && echo \":( \")\$ "
+
 fi
 
-# set a fancy prompt (non-color, overwrite the one in /etc/profile)
-PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+PS2="> "
+PS3="> "
+PS4="+ "
 
-# Commented out, don't overwrite xterm -T "title" -n "icontitle" by default.
-# If this is an xterm set the title to user@host:dir
-#case "$TERM" in
-#xterm*|rxvt*)
-#    PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
-#    ;;
-#*)
-#    ;;
-#esac
+# Try to keep environment pollution down, EPA loves us.
+unset safe_term match_lhs
 
-# enable bash completion in interactive shells
-#if ! shopt -oq posix; then
-#  if [ -f /usr/share/bash-completion/bash_completion ]; then
-#    . /usr/share/bash-completion/bash_completion
-#  elif [ -f /etc/bash_completion ]; then
-#    . /etc/bash_completion
-#  fi
-#fi
+# Try to enable the auto-completion
+[ -r /usr/share/bash-completion/bash_completion ] && . /usr/share/bash-completion/bash_completion
+
 
 # if the command-not-found package is installed, use it
 if [ -x /usr/lib/command-not-found -o -x /usr/share/command-not-found/command-not-found ]; then
