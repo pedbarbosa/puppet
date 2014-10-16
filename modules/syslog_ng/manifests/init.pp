@@ -1,4 +1,4 @@
-class syslog-ng {
+class syslog_ng {
     package {
         'rsyslog':
             ensure  => absent;
@@ -18,7 +18,7 @@ class syslog-ng {
             owner   => root,
             group   => root,
             mode    => '0644',
-            source  => 'puppet:///modules/syslog-ng/syslog-ng.conf',
+            source  => 'puppet:///modules/syslog_ng/syslog-ng.conf',
             require => Package['syslog-ng'],
             notify  => Service['syslog-ng'];
     }

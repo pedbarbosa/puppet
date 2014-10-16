@@ -1,15 +1,15 @@
 class rtorrent {
-    package {
-		'mediainfo':
-            ensure => installed;
+  package {
+    'mediainfo':
+      ensure => installed;
 
-        'rtorrent':
-            ensure => installed;
+    'rtorrent':
+      ensure => installed;
 
-        'screen':
-            ensure => installed;
+    'screen':
+      ensure => installed;
 
-		'unrar':
-            ensure => installed;
-    }
+    'unrar':
+      ensure => installed;
+  }
 }

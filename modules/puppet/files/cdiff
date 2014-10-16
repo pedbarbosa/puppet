@@ -1,0 +1,12 @@
+#!/bin/bash
+
+red="$(tput setaf 1)$(tput bold)"
+green="$(tput setaf 2)$(tput bold)"
+yellow="$(tput setaf 3)$(tput bold)"
+reset="$(tput sgr0)"
+
+/usr/bin/diff $@ | \
+sed 's/^\([ +-]\) *password: .*$/\1 '$yellow'Suppressing potentially sensitive diff.'$reset'/' | \
+sed 's/^\([^+-]\)/'$reset'\1/' | \
+sed 's/^\(+.*\)$/'$green'\1'$reset'/' | \
+sed 's/^\(-.*\)$/'$red'\1'$reset'/'

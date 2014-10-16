@@ -26,10 +26,10 @@
 
     report   = true
     noop     = true
-    certname = cereja.barbosa.tk
-    server   = puppet.barbosa.tk
+    certname = <%= @fqdn %>
+    server   = puppet.<%= @domain %>
 
 [master]
     autosign = $confdir/autosign.conf { mode = 664 }
     ca       = true
-    certname = puppet.barbosa.tk
+    certname = puppet.<%= @domain %>

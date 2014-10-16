@@ -1,6 +1,11 @@
-node 'morango.home.gateway' {
-    include os_default
-    include postfix
-    include rtorrent
-    include syslog-ng
+node default {
+  include postfix
+  include puppet
+  include rtorrent
+  include syslog_ng
+
+  package {
+    'bash':
+      ensure => installed;
+  }
 }
