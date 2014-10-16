@@ -1,5 +1,9 @@
 class os_default {
 
+  if $operatingsystem == "Archlinux" {
+    include os_default::arch
+  }
+
   package { [
     'autofs',
     'bash-completion',
@@ -28,8 +32,5 @@ class os_default {
   file {
     '/etc/ssh/sshd_config':
       ensure => file;
-
-#   '/etc/vim/vimrc':
-#     source => 'puppet:///os_default/vimrc';
   }
 }

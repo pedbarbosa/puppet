@@ -24,7 +24,7 @@ class collectd {
       owner   => 'root',
       group   => 'root',
       mode    => '0640',
-      source  => 'puppet:///collectd/collectd.conf',
+      source  => 'puppet:///modules/collectd/collectd.conf',
       require => Package['collectd'],
       notify  => Service['collectd'];
 
@@ -32,7 +32,7 @@ class collectd {
       owner   => 'root',
       group   => 'root',
       mode    => '0755',
-      source  => 'puppet:///collectd/collectd.d',
+      source  => 'puppet:///modules/collectd/collectd.d',
       recurse => true,
       require => Package['collectd'],
       notify  => Service['collectd'];

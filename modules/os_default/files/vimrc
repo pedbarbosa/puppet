@@ -191,3 +191,4 @@ command! PrettyXML call DoPrettyXML()
 " Manually added
 set ts=4 expandtab
 syntax on
+highlight Comment ctermfg=grey
