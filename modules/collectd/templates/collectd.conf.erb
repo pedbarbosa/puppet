@@ -1,0 +1,26 @@
+# collectd configuration for server
+Hostname "<%= @hostname -%>"
+
+# Enabled plugins without special configuration
+LoadPlugin cpu
+LoadPlugin entropy
+LoadPlugin irq
+LoadPlugin load
+LoadPlugin memory
+LoadPlugin processes
+LoadPlugin sensors
+LoadPlugin syslog
+
+<%- if @uniqueid == 'a8c00202' -%>
+# Specific plugins for collectd server
+LoadPlugin dns
+LoadPlugin hddtemp
+
+# Other plugins with customised configuration
+Include "/etc/collectd.d/*.conf"
+<%- else -%>
+LoadPlugin interface
+
+# Other plugins with customised configuration
+Include "/etc/collectd/collectd.d/*.conf"
+<%- end -%>

@@ -6,7 +6,7 @@ class puppet {
 
   package { [
     'facter',
-    'hiera',
+    #'hiera',
     'puppet',
   ]:
     ensure => installed;

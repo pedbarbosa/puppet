@@ -1,8 +1,17 @@
 class os_default {
-  include os_default::ntp
 
   if $operatingsystem == "Archlinux" {
+    include os_default::ntpd
     include os_default::os_arch
+
+    package {
+      'msgpack':
+        ensure   => installed,
+        provider => 'gem',
+        require  => Package['ruby'];
+    }
+  } else {
+    include os_default::ntp
   }
 
   package { [
@@ -27,12 +36,5 @@ class os_default {
     'wget',
     ]:
       ensure => installed;
-  }
-
-  package {
-    'msgpack':
-      ensure   => installed,
-      provider => 'gem',
-      require  => Package['ruby'];
   }
 }

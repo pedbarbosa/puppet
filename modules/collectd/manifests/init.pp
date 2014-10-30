@@ -1,40 +1,65 @@
 class collectd {
 
-  package { [
-    'collectd',
-    'hddtemp',
-#    'libhtml-parser-perl',
-#    'libjson-perl',
-    'liboping',
-#    'librrds-perl',
-    'lm_sensors',
-    'rrdtool',
-    ]:
-      ensure => installed;
-  }
-
   service { 'collectd':
     ensure  => running,
     enable  => true,
     require => Package['collectd'];
   }
 
-  file {
-    '/etc/collectd.conf':
-      owner   => 'root',
-      group   => 'root',
-      mode    => '0640',
-      source  => 'puppet:///modules/collectd/collectd.conf',
-      require => Package['collectd'],
-      notify  => Service['collectd'];
+  if $operatingsystem == "Archlinux" {
+    package { [
+      'collectd',
+      'hddtemp',
+      'liboping',
+      'lm_sensors',
+      'rrdtool',
+      ]:
+        ensure => installed;
+    }
 
-    '/etc/collectd.d':
-      owner   => 'root',
-      group   => 'root',
-      mode    => '0755',
-      source  => 'puppet:///modules/collectd/collectd.d',
-      recurse => true,
-      require => Package['collectd'],
-      notify  => Service['collectd'];
+    file {
+      '/etc/collectd.conf':
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0640',
+        content => template('collectd/collectd.conf.erb'),
+        require => Package['collectd'],
+        notify  => Service['collectd'];
+
+     '/etc/collectd.d':
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0755',
+        source  => 'puppet:///modules/collectd/arch',
+        recurse => true,
+        require => Package['collectd'],
+        notify  => Service['collectd'];
+    }
+  } elsif $operatingsystem == "Debian" {
+    package { [
+      'collectd',
+      'lm-sensors',
+      ]:
+        ensure => installed;
+    }
+
+    file {
+      '/etc/collectd/collectd.conf':
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0640',
+        content => template('collectd/collectd.conf.erb'),
+        require => Package['collectd'],
+        notify  => Service['collectd'];
+
+      '/etc/collectd/collectd.d':
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0755',
+        source  => 'puppet:///modules/collectd/debian',
+        recurse => true,
+        require => Package['collectd'],
+        notify  => Service['collectd'];
+    }
   }
 }

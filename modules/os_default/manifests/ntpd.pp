@@ -1,7 +1,7 @@
-class os_default::ntp {
+class os_default::ntpd {
   package { 'ntp': ensure => installed }
 
-  service { 'ntp':
+  service { 'ntpd':
     ensure  => running,
     enable  => true,
     require => Package['ntp'];
@@ -11,6 +11,6 @@ class os_default::ntp {
     ensure  => link,
     target  => '/usr/share/zoneinfo/Australia/Brisbane',
     require => Package['ntp'],
-    notify  => Service['ntp'];
+    notify  => Service['ntpd'];
   }
 }
