@@ -2,13 +2,13 @@ class collectd {
 
   package { [
     'collectd',
-    'rrdtool',
-    'librrds-perl',
-    'libjson-perl',
-    'libhtml-parser-perl',
-    'lm_sensors',
     'hddtemp',
+    'libhtml-parser-perl',
+    'libjson-perl',
     'liboping',
+    'librrds-perl',
+    'lm_sensors',
+    'rrdtool',
     ]:
       ensure => latest;
   }

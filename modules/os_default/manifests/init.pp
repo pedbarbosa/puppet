@@ -1,7 +1,8 @@
 class os_default {
+  include os_default::ntp
 
   if $operatingsystem == "Archlinux" {
-    include os_default::arch
+    include os_default::os_arch
   }
 
   package { [
@@ -19,7 +20,6 @@ class os_default {
     'mlocate',
     'ncdu',
     'net-tools',
-    'ntp',
     'rsync',
     'ruby',
     'samba',
