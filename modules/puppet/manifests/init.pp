@@ -18,6 +18,15 @@ class puppet {
     require => Package['puppet'];
   }
 
+  if $uniqueid == 'a8c00202' {
+    service {
+      'puppetmaster':
+        ensure => running,
+        enable => true,
+        require => Package['puppet'];
+    }
+   }
+
   file {
     '/etc/puppet/puppet.conf':
       ensure  => present,

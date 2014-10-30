@@ -21,10 +21,18 @@ class os_default {
     'net-tools',
     'ntp',
     'rsync',
+    'ruby',
     'samba',
     'sysstat',
     'wget',
     ]:
       ensure => latest;
+  }
+
+  package {
+    'msgpack':
+      ensure   => latest,
+      provider => 'gem',
+      require  => Package['ruby'];
   }
 }
