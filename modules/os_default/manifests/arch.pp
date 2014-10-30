@@ -1,6 +1,7 @@
 class os_default::arch {
 
   package { [
+    'cronie',
     'openssh',
     'wol',
     ]:
@@ -8,6 +9,11 @@ class os_default::arch {
   }
 
   service {
+    'cronie':
+      ensure  => running,
+      enable  => true,
+      require => Package['cronie'];
+
     'sshd':
       ensure  => running,
       enable  => true,
