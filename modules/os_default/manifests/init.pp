@@ -26,12 +26,12 @@ class os_default {
     'sysstat',
     'wget',
     ]:
-      ensure => latest;
+      ensure => installed;
   }
 
   package {
     'msgpack':
-      ensure   => latest,
+      ensure   => installed,
       provider => 'gem',
       require  => Package['ruby'];
   }

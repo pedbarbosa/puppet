@@ -4,7 +4,7 @@ class os_default::arch {
     'openssh',
     'wol',
     ]:
-      ensure => latest;
+      ensure => installed;
   }
 
   service {

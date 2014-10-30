@@ -9,7 +9,7 @@ class puppet {
     'hiera',
     'puppet',
   ]:
-    ensure => latest;
+    ensure => installed;
   }
 
   service { 'puppet':
