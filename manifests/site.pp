@@ -1,4 +1,5 @@
 node default {
+  include collectd
   include os_default
   include postfix
   include puppet

@@ -3,14 +3,14 @@ class collectd {
   package { [
     'collectd',
     'hddtemp',
-    'libhtml-parser-perl',
-    'libjson-perl',
+#    'libhtml-parser-perl',
+#    'libjson-perl',
     'liboping',
-    'librrds-perl',
+#    'librrds-perl',
     'lm_sensors',
     'rrdtool',
     ]:
-      ensure => latest;
+      ensure => installed;
   }
 
   service { 'collectd':

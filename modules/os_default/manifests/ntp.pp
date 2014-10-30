@@ -4,13 +4,13 @@ class os_default::ntp {
   service { 'ntpd':
     ensure  => running,
     enable  => true,
-    require => Package['cronie'];
+    require => Package['ntp'];
   }
 
   file { '/etc/localtime':
     ensure  => link,
     target  => '/usr/share/zoneinfo/Australia/Brisbane',
-    require => Package['ntpd'],
+    require => Package['ntp'],
     notify  => Service['ntpd'];
   }
 }
