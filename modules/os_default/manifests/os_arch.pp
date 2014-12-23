@@ -3,6 +3,8 @@ class os_default::os_arch {
   include os_default::ssh
 
   package { [
+    'dos2unix',
+    'python-pip',
     'wol',
     ]:
       ensure => installed;
