@@ -2,7 +2,10 @@ class postfix {
   package {
     'postfix':
       ensure => installed;
-    'exim':
+
+    [ 'exim4-base',
+      'exim4-config',
+      'exim4-daemon-light', ]:
       ensure => absent,
       before => Package['postfix'];
   }

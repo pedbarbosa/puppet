@@ -32,9 +32,7 @@
     certname = <%= @fqdn %>
     server   = puppet.<%= @domain %>
 
-<%- if @uniqueid == 'a8c00202' -%>
 [master]
     autosign = $confdir/autosign.conf { mode = 664 }
     ca       = true
     certname = puppet.<%= @domain %>
-<%- end -%>
