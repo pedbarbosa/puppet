@@ -4,7 +4,6 @@ class os_default::os_arch {
 
   package { [
     'dos2unix',
-    'python-pip',
     'wol',
     ]:
       ensure => installed;
