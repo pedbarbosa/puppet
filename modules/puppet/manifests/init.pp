@@ -4,13 +4,12 @@
 #
 class puppet {
 
-  package {
-    'facter':
-      ensure => '2.4.0-1';
-    'hiera':
-      ensure => '1.3.4-2';
-    'puppet':
-      ensure => '3.7.4-2';
+  package { [
+    'facter',
+    'hiera',
+    'puppet',
+  ]:
+    ensure => installed;
   }
 
   service { 'puppet':

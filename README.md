@@ -3,6 +3,11 @@ puppet
 
 puppetmaster on the NUC
 
+Versions:
+    facter - 2.4.0-1
+    hiera  - 1.3.4-2
+    puppet - 3.7.4-2
+
 TODO: add installation instructions
 
 puppetmaster for the cubieboard (deprecated)
