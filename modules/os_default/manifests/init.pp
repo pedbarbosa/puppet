@@ -4,12 +4,12 @@ class os_default {
     include os_default::ntpd
     include os_default::os_arch
 
-    package {
-      'msgpack':
-        ensure   => installed,
-        provider => 'gem',
-        require  => Package['ruby'];
-    }
+    #package {
+    #  'msgpack':
+    #    ensure   => installed,
+    #    provider => 'gem',
+    #    require  => Package['ruby'];
+    #}
   } else {
     include os_default::ntp
   }
@@ -17,10 +17,10 @@ class os_default {
   package { [
     'autofs',
     'bash-completion',
+    'bind-tools',
     'cifs-utils',
     'curl',
     'dhcpcd',
-    'dnsutils',
     'ethtool',
     'git',
     'iftop',
