@@ -16,10 +16,10 @@ class os_default::os_arch {
       mode   => '0644',
       source => 'puppet:///modules/os_default/arch.mirrorlist';
 
-    '/etc/vimrc':
-      owner  => 'root',
-      group  => 'root',
-      mode   => '0644',
-      source => 'puppet:///modules/os_default/vimrc';
+#    '/etc/vimrc':
+#      owner  => 'root',
+#      group  => 'root',
+#      mode   => '0644',
+#      source => 'puppet:///modules/os_default/vimrc';
   }
 }
