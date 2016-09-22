@@ -7,6 +7,5 @@ node default {
 
   if $uniqueid == 'a8c00202' {
     include postfix
-    include rtorrent
   }
 }
