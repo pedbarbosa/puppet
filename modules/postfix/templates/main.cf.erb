@@ -1,7 +1,8 @@
 # Basic configuration
 
 mydomain                        = <%= @domain %>
-myhostname                      = <%= @hostname -%>.$mydomain
+myhostname                      = mail.$mydomain
+myorigin                        = $mydomain
 smtpd_banner                    = $myhostname ESMTP - No UBE/UCE
 mynetworks                      = 127.0.0.0/8 192.168.2.0/24
 mydestination                   = $myhostname localhost.$mydomain $mydomain
@@ -12,36 +13,50 @@ relayhost                       =
 
 disable_vrfy_command            = yes
 smtpd_helo_required             = yes
-#smtpd_recipient_restrictions    =
-#    permit_mynetworks,
-#    permit_sasl_authenticated,
-#    reject_unauth_destination,
-#    reject_invalid_helo_hostname,
-#    reject_non_fqdn_helo_hostname,
-#    reject_unauth_pipelining,
-#    reject_unverified_recipient,
-#    reject_non_fqdn_sender,
-#    reject_unknown_sender_domain,
-#    reject_non_fqdn_recipient,
-#    reject_unknown_recipient_domain,
+smtpd_recipient_restrictions    =
+    check_client_access hash:/etc/postfix/access,
+    check_sender_access hash:/etc/postfix/sender_access
+    permit_mynetworks,
+    permit_sasl_authenticated,
+    reject_unauth_destination,
+    reject_invalid_helo_hostname,
+    reject_non_fqdn_helo_hostname,
+    reject_unauth_pipelining,
+    reject_unverified_recipient,
+    reject_non_fqdn_sender,
+    reject_unknown_sender_domain,
+    reject_non_fqdn_recipient,
+    reject_unknown_recipient_domain,
 #    check_client_access hash:/etc/postfix/access,
 #    check_sender_access hash:/etc/postfix/sender_access,
 #    check_recipient_access hash:/etc/postfix/recipient_access,
 ##   reject_rbl_client dnsbl.sorbs.net,
 ##   reject_rbl_client cbl.abuseat.org,
 ##   reject_rbl_client bl.spamcop.net, 
-#    permit
+    permit
 
 # TLS configuration
 
-smtpd_tls_loglevel              = 0
+smtpd_tls_security_level        = may
+smtpd_tls_loglevel              = 1
 smtpd_tls_key_file              = /etc/httpd/conf/server.key
 smtpd_tls_cert_file             = /etc/httpd/conf/server.crt
+smtpd_tls_auth_only             = yes
 smtpd_tls_received_header       = yes
 smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
+
+smtp_tls_security_level         = may
+smtp_tls_loglevel               = 1
 smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
-inet_protocols                  = ipv4
 
 # Virtual addresses
 virtual_alias_maps              = hash:/etc/postfix/virtual
 compatibility_level             = 2
+
+# General settings
+alias_maps                      = hash:/etc/aliases
+inet_protocols                  = ipv4
+
+# Attachments
+mime_header_checks              = regexp:/etc/postfix/mime_header_checks
+
