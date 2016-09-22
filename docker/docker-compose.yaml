@@ -1,0 +1,9 @@
+puppet:
+  build: puppetmaster/
+  hostname: puppet
+  ports:
+    - "8140:8140"
+  volumes:
+    - /opt/puppet/manifests:/etc/puppet/manifests
+    - /opt/puppet/modules:/etc/puppet/modules
+
