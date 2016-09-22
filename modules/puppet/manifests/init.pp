@@ -4,28 +4,28 @@
 #
 class puppet {
 
-  package { [
-    'facter',
-    'hiera',
-    'puppet',
-  ]:
-    ensure => installed;
-  }
+  #  package { [
+  #    'facter',
+  #    'hiera',
+  #    'puppet',
+  #]:
+  #  ensure => installed;
+  #}
 
-  service { 'puppet':
-    ensure  => running,
-    enable  => true,
-    require => Package['puppet'];
-  }
+  #service { 'puppet':
+  #  ensure  => running,
+  #  enable  => true,
+  #  require => Package['puppet'];
+  #}
 
   file {
     '/etc/puppet/puppet.conf':
       ensure  => present,
-      content => template('puppet/puppet.conf.erb'),
-      owner   => 'puppet',
-      group   => 'puppet',
-      mode    => '0644',
-      notify  => Service['puppet'];
+      content => template('puppet/puppet.conf.erb');
+      #  owner   => 'puppet',
+      # group   => 'puppet',
+      #mode    => '0644',
+    #    notify  => Service['puppet'];
 
     '/usr/local/bin/cdiff':
       ensure => present,
