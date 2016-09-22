@@ -1,6 +1,7 @@
 node default {
-  include collectd
   include os_default
+
+  include collectd
   include puppet
   include syslog_ng
 
