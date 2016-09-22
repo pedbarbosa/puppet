@@ -31,8 +31,3 @@
     noop     = true
     certname = <%= @fqdn %>
     server   = puppet.<%= @domain %>
-
-[master]
-    autosign = $confdir/autosign.conf { mode = 664 }
-    ca       = true
-    certname = puppet.<%= @domain %>
