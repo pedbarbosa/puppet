@@ -1,7 +1,3 @@
-# Use this command to create the Puppet container:
-#
-#   docker build -t puppetmaster .
-
 FROM centos:7
 MAINTAINER Pedro Barbosa <pedbarbosa@users.noreply.github.com>
 RUN rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm
