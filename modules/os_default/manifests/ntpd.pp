@@ -16,9 +16,9 @@ class os_default::ntpd {
 
     '/etc/ntp.conf':
       owner   => 'root',
-      group  => 'root',
-      mode   => '0644',
-      source => 'puppet:///modules/os_default/ntp.conf',
-      notify => Service['ntpd'];
+      group   => 'root',
+      mode    => '0644',
+      source  => 'puppet:///modules/os_default/ntp.conf',
+      notify  => Service['ntpd'];
   }
 }
