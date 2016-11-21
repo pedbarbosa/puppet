@@ -3,6 +3,7 @@ puppet:
   hostname: puppet
   ports:
     - "8140:8140"
+  restart: always
   volumes:
     - /opt/puppet/manifests:/etc/puppet/manifests
     - /opt/puppet/modules:/etc/puppet/modules
