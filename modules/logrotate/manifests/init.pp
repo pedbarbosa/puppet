@@ -16,6 +16,13 @@ class logrotate {
             owner   => root,
             group   => root,
             mode    => '0644',
-            source  => 'puppet:///modules/logrotate/logrotate.conf',
+            source  => 'puppet:///modules/logrotate/logrotate.conf';
+
+        '/etc/logrotate.d/ntp':
+            owner   => root,
+            group   => root,
+            mode    => '0644',
+            source  => 'puppet:///modules/logrotate/logrotate.d/ntp',
+            notify  => Service['logrotate.timer'];
     }
 }

@@ -1,0 +1,9 @@
+/var/log/ntp.log {
+   notifempty
+   missingok
+   sharedscripts
+   copytruncate
+   postrotate
+      /usr/bin/systemctl restart logrotate.timer 2>/dev/null || true
+   endscript
+}
