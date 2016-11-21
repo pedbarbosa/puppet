@@ -3,6 +3,7 @@ node default {
 
   include collectd
   include puppet
+  include logrotate
   include syslog_ng
 
   if $uniqueid == 'a8c00202' {
