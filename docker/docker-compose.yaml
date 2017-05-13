@@ -1,5 +1,6 @@
 puppet:
   build: puppetmaster/
+  container_name: puppetmaster
   hostname: puppet
   ports:
     - "8140:8140"
