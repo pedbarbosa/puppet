@@ -7,7 +7,7 @@ class syslog_ng {
     }
 
     service {
-        'syslog-ng':
+        'syslog-ng@default':
             enable  => true,
             ensure  => running,
             require => Package['syslog-ng'];
@@ -20,6 +20,14 @@ class syslog_ng {
             mode    => '0644',
             source  => 'puppet:///modules/syslog_ng/syslog-ng.conf',
             require => Package['syslog-ng'],
-            notify  => Service['syslog-ng'];
+            notify  => Service['syslog-ng@default'];
+
+        '/etc/logrotate.d/syslog-ng':
+            owner   => root,
+            group   => root,
+            mode    => '0644',
+            source  => 'puppet:///modules/syslog_ng/syslog-ng.logrotate',
+            require => Package['logrotate'],
+            notify  => Service['logrotate.timer'];
     }
 }
